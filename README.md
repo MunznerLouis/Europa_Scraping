@@ -7,7 +7,7 @@ Le projet est de scraper des données sur le site : https://ec.europa.eu/clima/e
 
 - techno utilisé : Scrapy, asyncio
 
-- méthode de stockage des fichiers : .json ou .Xml (ou autre type de frichier permettant de saugardé des données suivant une hiérarchie)
+- méthode de stockage des fichiers : .json ou .Xml (ou autre type de fichier permettant de saugareré des données suivant une hiérarchie)
 
 
 On va revenir en détail sur les précédents points :
