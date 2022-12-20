@@ -1,0 +1,24 @@
+Pour lancer une Spider contenu dans le dossier 'spiders' du projet : 
+
+Etape 1 : Avec un terminale, naviguer jusqu'au dossier où se trouve le projet 
+exemple :  ~/Desktop/Projet sciencepo/Europa_Scraping/scrapy_scraper (main)
+
+Etape 2 : vérifier d'avoir bien installé Scrapy et asyncio 
+pip install scrapy
+pip install asyncio
+
+Etape 3 : lancer la commande suivante : 
+scrapy crawl [nom de la classe spider qu'on veut lancer] exemple:
+scrapy crawl europa_spider
+ça aura pour effet de scraper le site, mais les données seront sauvegardé nullpart
+pour sauvegarder les données quelque part, suivre l'étape 4 : 
+
+Etape 4 : lancer la commande suivante : 
+scrapy crawl [nom de la classe spider] -o [nom de fichier avec son extension]
+le 'o' peut etre en majuscule si on veut Override on fichier du même nom 
+exemple
+scrapy crawl europa_spider -O data.json
+
+à noter que -O pour Override ne marche pas avec tous les types de fichiers, notamment .csv
+
+PS : l'étape 4 remplace l'étape 3 dans le cas ou on veut sauvegarder les données scrapées
