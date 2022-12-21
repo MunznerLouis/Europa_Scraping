@@ -29,22 +29,12 @@ class europa_spider(scrapy.Spider):
         
         accounts = response.xpath('/html/body/ul[2]/li')
         for account in accounts:
-            data =[]
+            data_dico ={}
             for li in account.xpath('.//ul/li'):
-                element = li.xpath(".//span[@class='value']/text()").get()
-                data.append(element)
-            yield {
-                "National Administrator": data[9],
-                "Account Type": data[8],
-                "Account Holder Name": data[7],
-                "Main Activity Type":data[6],
-                "Permit/Plan Date":data[5],
-                "Installation/Aircraft Operator ID":data[4],
-                "Permit/Plan ID":data[3],
-                "Main Activity Type Code":data[2],
-                "Installation Name/Aircraft Operator Code: ":data[1],
-                "Latest Compliance Code":data[0],
-                }
+                key = li.xpath(".//span[@class='key']/text()").get()
+                value = li.xpath(".//span[@class='value']/text()").get()
+                data_dico[key]= value
+            yield data_dico
 
 
 
