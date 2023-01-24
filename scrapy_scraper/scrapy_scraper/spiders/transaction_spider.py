@@ -45,6 +45,6 @@ class transaction_spider(scrapy.Spider):
                 'Nb_of_Units': row.css('td:nth-child(15) span::text').get().strip()          
                 
                 } 
-                #ajouter une colonne par année de Compliance "Compliance_2005 , Compliance_2006" etc avec des tuples pour les données des lignes
+              
 
             yield dico_data
