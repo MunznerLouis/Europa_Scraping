@@ -1,4 +1,3 @@
-
 import asyncio      #pip install asyncio (pas sûre de l'utiliser)    
 import scrapy       #pip install scrapy  --> scrapy ver. > 2.4 pour utiliser asyncio
 
@@ -10,9 +9,10 @@ class europa_spider(scrapy.Spider):
     ]
 
     async def parse(self, response): #extrait les données du tableau
-        for row in response.css('table#tblAccountSearchResult tr:nth-child(n+3)'):  #on commande a n+3 car les infos sont pas pertinentes avant ça
-
-            dico_data ={                'National_Administrator': row.css('td:nth-child(1) span::text').get().strip(),
+        for row in response.css('table#tblAccountSearchResult tr:nth-child(n+3)'):  # (n+3) car les infos sont pas pertinentes avant ça
+            
+            dico_table_data ={               
+                'National_Administrator': row.css('td:nth-child(1) span::text').get().strip(),
                 'Account_Type': row.css('td:nth-child(2) span::text').get().strip(),
                 'Account_Holder_Name': row.css('td:nth-child(3) span::text').get().strip(),
                 'Installation/Aircraft_ID': row.css('td:nth-child(4) span::text').get().strip(),
@@ -22,9 +22,9 @@ class europa_spider(scrapy.Spider):
                 'Permit/Plan_Date': row.css('td:nth-child(8) span::text').get().strip(),
                 'Main_Activity_Type': row.css('td:nth-child(9) span::text').get().strip(),
                 'Latest_Compliance_Code': row.css('td:nth-child(10) span::text').get().strip()} 
-                #ajouter une colonne par année de Compliance "Compliance_2005 , Compliance_2006" etc avec des tuples pour les données des lignes
+            url = row.css('td:nth-child(11) td:nth-child(2) a::attr(href)').get()
 
-            yield dico_data
+            yield scrapy.Request(url, self.parse_compliances,meta={'dico_table_data': dico_table_data})
             
 
     async def parse_countries(self, response):
@@ -35,9 +35,20 @@ class europa_spider(scrapy.Spider):
         return
         #to be coded
 
-    async def parse_Compliances(self, response):
-        return
-        #to be coded
+
+    async def parse_compliances(self, response):
+        dico_table_data = response.meta['dico_table_data']        
+        dico_compliances = {}
+        for row in response.css('[id=tblChildDetails] div table tr:nth-child(n+3):not(:nth-last-child(-n+6))'): #(-n+6) car les 7dernieres lignes servent à rien (et provoquent des erreurs)
+            key_year = row.css('td:nth-child(2) span::text').get(default=float('nan')).strip()
+            dico_compliances["Compliance"+key_year] = ( {"Allowances_in_Allocation":        None if not row.css('td:nth-child(3) span::text').get().strip() else row.css('td:nth-child(3) span::text').get().strip()},
+                                                        {"Verified_Emissions":              None if not row.css('td:nth-child(4) span::text').get().strip() else row.css('td:nth-child(4) span::text').get().strip()},
+                                                        {"Units_Surrendered":               None if not row.css('td:nth-child(5) span::text').get().strip() else row.css('td:nth-child(5) span::text').get().strip()},
+                                                        {"Cumulative_Surrendered_Units":    None if not row.css('td:nth-child(6) span::text').get().strip() else row.css('td:nth-child(6) span::text').get().strip()},
+                                                        {"Cumulative_Verified_Emissions":   None if not row.css('td:nth-child(7) span::text').get().strip() else row.css('td:nth-child(7) span::text').get().strip()},
+                                                        {"Compliance_Code":                 None if not row.css('td:nth-child(8) span::text').get().strip() else row.css('td:nth-child(8) span::text').get().strip()} )
+        dico_data = dico_table_data | dico_compliances
+        yield dico_data
 
 
 '''
@@ -48,6 +59,7 @@ scrapy runspider europa_spider.py -O data.csv
 "runspider" permet de lancer une spider à la fois, alors que "crawl" peut permettre d'en lancer plusieurs
 
 pour lancer Crawl il faut etre n'importe ou dans le projet scrapy
+
 
 pour lancer runspider il faut être dans le meme directory que la spider (ici europa_spider) 
 c'est pour ça que le .csv se sauvegarde automatiquement a cet endroit
