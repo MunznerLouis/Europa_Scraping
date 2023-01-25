@@ -7,7 +7,7 @@ Le projet est de scraper des données sur le site : https://ec.europa.eu/clima/e
 
 - techno utilisé : Scrapy, asyncio
 
-- méthode de stockage des fichiers : .json ou .Xml (ou autre type de fichier permettant de sauvegarder des données suivant une hiérarchie)
+- méthode de stockage des fichiers : .csv
 
 
 On va revenir en détail sur les précédents points :
@@ -19,7 +19,6 @@ Une premiere version d'un scraper avait été fait avec BeautifulSoup, et cet ou
   Pour ce qui est du Selenium le choix à été très rapidement fait. On s'est aperçu que c'était plus un outil d'automatisation que de scraping, et nous ne pouvions pas nous baser sur ça pour scraper des centaines/miliers d'url différents.
   Scrapy est venu en dernier et s'est demarqué par sa rapidité, notamment grace aux  requête asynchrone qui ont permis de nous faire gagner beaucoup de temps, même si cette technologie était nouvel pour nous.
 
-- méthode de stockage : Le choix est encore a faire, ce n'est pas une priorité pour l'instant. Mais de ce qu'on a pu voir il est préférable de choisir un type de stockage supportant les données "hiérarchisé" comme json ou xml plutôt que .csv qui renvoi des erreurs dans ces cas là, même si par consequent les fichiers sauvegardé seraient plus lourd.
-  De plus cette méthode de stockage (json et xml) est très peu user friendly, mais puisque nous voulons par la suite visualiser les données collectés sur un dashboard, ce n'est pas un problème de passer par ce type de fichier.
+- méthode de stockage : Le choix est encore a faire, ce n'est pas une priorité pour l'instant. Mais de ce qu'on a pu voir il est préférable de choisir un type de stockage tel que .csv ou .xlsx puisque l'usage de ces données est d'être utilisé par des data scientists ou des economistes, et qu'un type de données comme .json et .xml supportant des données hiérarchisées pouvait être trop complexe
 
 
