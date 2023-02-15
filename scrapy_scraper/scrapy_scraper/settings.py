@@ -25,8 +25,8 @@ ROBOTSTXT_OBEY = False   #on set to false pour pas recevoir 1000 messages d'erre
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-DOWNLOAD_DELAY = 0.1   #10rq/s
-RANDOMIZE_DOWNLOAD_DELAY = True
+#DOWNLOAD_DELAY = 0.2   #5rq/s
+#RANDOMIZE_DOWNLOAD_DELAY = True
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
