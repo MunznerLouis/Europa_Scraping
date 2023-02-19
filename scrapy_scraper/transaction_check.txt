@@ -1,0 +1,5 @@
+Date du dernier lancement du script transaction_check.py : 2023-02-19 21:08:15.580462
+Date de derni�re update du fichier transaction_verif.txt : 2023-02-19 20:02:04.646495
+
+Nombre de lignes de la derni�re update : 55342
+Date de derni�re update : 2019-04-30 19:02:55.43
