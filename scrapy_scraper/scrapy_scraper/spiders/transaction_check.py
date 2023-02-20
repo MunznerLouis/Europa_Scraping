@@ -23,8 +23,8 @@ class transaction_check(scrapy.Spider):
             #print([p,nb_pages,date,lastdate])   #debug
             if p != nb_pages or date != lastdate:
                 f.write(f"Date de dernière update du fichier transaction_check.txt : {datetime.now()}\n\n")
-                f.write(f"Nombre de lignes de la dernière update : {nb_pages}\n")
-                f.write(f"Date de dernière update du site: {lastdate}")
+                f.write(f"Nombre de pages de la dernière update : {nb_pages}\n")
+                f.write(f"Date de dernière update du sitedu site: {lastdate}")
 
                 #lancer la commande bash 'scrapy crawl transaction_spider -O ../../data.csv'
 
