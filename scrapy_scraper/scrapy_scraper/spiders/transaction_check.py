@@ -1,5 +1,6 @@
 import scrapy
-from datetime import datetime
+from datetime import datetime, timedelta
+import subprocess
 
 class transaction_check(scrapy.Spider):
     name = "transaction_check"
@@ -9,26 +10,29 @@ class transaction_check(scrapy.Spider):
 
     def parse(self, response):
         nb_pages = response.xpath("//input[@name='resultList.lastPageNumber']/@value").get()
-        lastdate = response.css("table#tblTransactionSearchResult tr:nth-child(3) td:nth-child(3) span::text").get().strip()
 
         #option 'r' pour recuperer les infos du .txt
         with open("../../transaction_check.txt", "r") as f:
             lines = f.readlines()
         p = lines[3].split(' : ')[-1].strip()
-        date = lines[4].split(' : ')[-1].strip()
         
         #option 'w' pour overwrite par dessus
         with open("../../transaction_check.txt", "w") as f:
             f.write(f"Date du dernier lancement du script transaction_check.py : {datetime.now()}\n")
             #print([p,nb_pages,date,lastdate])   #debug
-            if p != nb_pages or date != lastdate:
+            if p != nb_pages:
                 f.write(f"Date de dernière update du fichier transaction_check.txt : {datetime.now()}\n\n")
                 f.write(f"Nombre de pages de la dernière update : {nb_pages}\n")
-                f.write(f"Date de dernière update du sitedu site: {lastdate}")
-
-                #lancer la commande bash 'scrapy crawl transaction_spider -O ../../data.csv'
-
                 print("File updated.")
             else:
                 f.write(''.join(lines[1:]))
                 print("File already up to date.")
+
+        date_format = '%Y-%m-%d %H:%M:%S.%f'
+        delta = datetime.now()-datetime.strptime(lines[1].split(' : ')[-1].strip(),date_format)
+        print("écart entre les deux dates : ",delta)
+        #on remet la meme condition car le script shell peut pas se lancer dans le 'with open():'
+        if p !=nb_pages or delta >= timedelta(days=30):
+            subprocess.run("scrapy crawl transaction_spider -O ../../data_transaction.csv", shell=True) #marche pas
+
+
