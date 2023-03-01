@@ -11,20 +11,20 @@ class europa_spider(scrapy.Spider):
     def start_requests(self):  #override de la fonction start_request pour que la premiere fonction lancé soit 'parse_countries' et pas 'parse' 
         yield scrapy.Request("https://ec.europa.eu/clima/ets/oha.do?form=oha&languageCode=fr&account.registryCodes=AT&accountHolder=&installationIdentifier=&installationName=&permitIdentifier=&mainActivityType=-1&searchType=oha&currentSortSettings=&resultList.currentPageNumber=1&nextList=Next%3", callback=self.parse_countries)
 
-    async def parse_countries(self, response):
+    def parse_countries(self, response):
         countries = response.xpath("//table[@id='tblAccountSearchCriteria']//select[@name='account.registryCodes']/option/@value").extract()
         for country in countries:
             url = f"https://ec.europa.eu/clima/ets/oha.do?form=oha&languageCode=fr&account.registryCodes={country}&accountHolder=&installationIdentifier=&installationName=&permitIdentifier=&mainActivityType=-1&searchType=oha&currentSortSettings=&resultList.currentPageNumber=1&nextList=Next%3"
             yield scrapy.Request(url, callback=self.parse_pages, meta={'country': country})       
 
-    async def parse_pages(self,response):
+    def parse_pages(self,response):
         pages = response.css("td.bgpagecontent input:nth-child(5)::attr(value)").get()
         country = response.meta['country']
         for page in range(int(pages)):
             url = f"https://ec.europa.eu/clima/ets/oha.do?form=oha&languageCode=fr&account.registryCodes={country}&accountHolder=&installationIdentifier=&installationName=&permitIdentifier=&mainActivityType=-1&searchType=oha&currentSortSettings=&resultList.currentPageNumber={page}&nextList=Next%3"
             yield scrapy.Request(url, callback=self.parse)
 
-    async def parse(self, response): #extrait les données du tableau
+    def parse(self, response): #extrait les données du tableau
         for row in response.css('table#tblAccountSearchResult tr:nth-child(n+3)'):  # (n+3) car les infos sont pas pertinentes avant ça
             dico_table_data ={               
                 'National_Administrator':                   None if not row.css('td:nth-child(1) span::text').get().strip() else row.css('td:nth-child(1) span::text').get().strip(),
@@ -41,17 +41,19 @@ class europa_spider(scrapy.Spider):
             yield scrapy.Request(url, self.parse_compliances,meta={'dico_table_data': dico_table_data})
             #permet de passer le dico en paramètre pour la fonction parse_compliance
 
-    async def parse_compliances(self, response):
+    def parse_compliances(self, response):
         dico_table_data = response.meta['dico_table_data']        
         dico_compliances = {}
         for row in response.css('[id=tblChildDetails] div table tr:nth-child(n+3):not(:nth-last-child(-n+6))'): #(-n+6) car les 7dernieres lignes servent à rien (et provoquent des erreurs)
-            key_year = row.css('td:nth-child(2) span::text').get().strip()
-            dico_compliances["Compliance"+key_year] = ( {"Allowances_in_Allocation":        None if not row.css('td:nth-child(3) span::text').get().strip() else row.css('td:nth-child(3) span::text').get().strip()},
-                                                        {"Verified_Emissions":              None if not row.css('td:nth-child(4) span::text').get().strip() else row.css('td:nth-child(4) span::text').get().strip()},
-                                                        {"Units_Surrendered":               None if not row.css('td:nth-child(5) span::text').get().strip() else row.css('td:nth-child(5) span::text').get().strip()},
-                                                        {"Cumulative_Surrendered_Units":    None if not row.css('td:nth-child(6) span::text').get().strip() else row.css('td:nth-child(6) span::text').get().strip()},
-                                                        {"Cumulative_Verified_Emissions":   None if not row.css('td:nth-child(7) span::text').get().strip() else row.css('td:nth-child(7) span::text').get().strip()},
-                                                        {"Compliance_Code":                 None if not row.css('td:nth-child(8) span::text').get().strip() else row.css('td:nth-child(8) span::text').get().strip()} )
+            key_year = row.css('td:nth-child(2) span::text').get().strip()  
+            for cell in row.css('tr'):
+                dico_compliances["Compliance_"+key_year+"_Allowances_in_Allocation"] =          None if not cell.css('td:nth-child(3) span::text').get().strip() else row.css('td:nth-child(3) span::text').get().strip()
+                dico_compliances["Compliance_"+key_year+"_Verified_Emissions"] =                None if not cell.css('td:nth-child(4) span::text').get().strip() else row.css('td:nth-child(4) span::text').get().strip()
+                dico_compliances["Compliance_"+key_year+"_Units_Surrendered"] =                 None if not cell.css('td:nth-child(5) span::text').get().strip() else row.css('td:nth-child(5) span::text').get().strip()
+                dico_compliances["Compliance_"+key_year+"_Cumulative_Surrendered_Units"] =      None if not cell.css('td:nth-child(6) span::text').get().strip() else row.css('td:nth-child(6) span::text').get().strip()
+                dico_compliances["Compliance_"+key_year+"_Cumulative_Verified_Emissions"] =     None if not cell.css('td:nth-child(7) span::text').get().strip() else row.css('td:nth-child(7) span::text').get().strip()
+                dico_compliances["Compliance_"+key_year+"_Compliance_Code"] =                   None if not cell.css('td:nth-child(8) span::text').get().strip() else row.css('td:nth-child(8) span::text').get().strip()
+        
         dico_data = dico_table_data | dico_compliances
         yield dico_data
 
@@ -60,7 +62,7 @@ class europa_spider(scrapy.Spider):
 lignes de commande pour lancer scrapy / store data dans un cmd : 
 scrapy crawl europa_spider -O data.csv    
 ou             
-scrapy runspider europa_spider.py -O data.csv
+scrapy runspider europa_spider.py -O ../../data.csv
 
 "runspider" permet de lancer une spider à la fois, alors que "crawl" peut permettre d'en lancer plusieurs
 
