@@ -1,48 +1,48 @@
-import asyncio      #pip install asyncio (pas sûre de l'utiliser)    
+import asyncio
 import scrapy       #pip install scrapy  --> scrapy ver. > 2.4 pour utiliser asyncio
+
 
 class europa_spider(scrapy.Spider):
 
     name = "europa_spider"
     start_urls = [
-        "https://ec.europa.eu/clima/ets/oha.do?form=oha&languageCode=fr&account.registryCodes=AT&accountHolder=&installationIdentifier=&installationName=&permitIdentifier=&mainActivityType=-1&searchType=oha&currentSortSettings=&resultList.currentPageNumber=1&nextList=Next%3E"
+        "https://ec.europa.eu/clima/ets/oha.do?form=oha&languageCode=fr&accountHolder=&installationIdentifier=&installationName=&permitIdentifier=&mainActivityType=-1&search=Search&searchType=oha&currentSortSettings="
     ]
-    custom_settings = {
-        'LOG_LEVEL': 'WARNING',
-    }
+    custom_settings = {'LOG_LEVEL': 'INFO'}
 
     def start_requests(self):  #override de la fonction start_request pour que la premiere fonction lancé soit 'parse_countries' et pas 'parse' 
-        yield scrapy.Request("https://ec.europa.eu/clima/ets/oha.do?form=oha&languageCode=fr&account.registryCodes=AT&accountHolder=&installationIdentifier=&installationName=&permitIdentifier=&mainActivityType=-1&searchType=oha&currentSortSettings=&resultList.currentPageNumber=1&nextList=Next%3", callback=self.parse_countries)
-
-    def parse_countries(self, response):
-        countries = response.xpath("//table[@id='tblAccountSearchCriteria']//select[@name='account.registryCodes']/option/@value").extract()
-        for country in countries:
-            url = f"https://ec.europa.eu/clima/ets/oha.do?form=oha&languageCode=fr&account.registryCodes={country}&accountHolder=&installationIdentifier=&installationName=&permitIdentifier=&mainActivityType=-1&searchType=oha&currentSortSettings=&resultList.currentPageNumber=1&nextList=Next%3"
-            yield scrapy.Request(url, callback=self.parse_pages, meta={'country': country})       
+        yield scrapy.Request("https://ec.europa.eu/clima/ets/oha.do?form=oha&languageCode=fr&accountHolder=&installationIdentifier=&installationName=&permitIdentifier=&mainActivityType=-1&search=Search&searchType=oha&currentSortSettings=", callback=self.parse_pages)     
 
     def parse_pages(self,response):
         pages = response.css("td.bgpagecontent input:nth-child(5)::attr(value)").get()
-        country = response.meta['country']
-        for page in range(int(pages)):
-            url = f"https://ec.europa.eu/clima/ets/oha.do?form=oha&languageCode=fr&account.registryCodes={country}&accountHolder=&installationIdentifier=&installationName=&permitIdentifier=&mainActivityType=-1&searchType=oha&currentSortSettings=&resultList.currentPageNumber={page}&nextList=Next%3"
-            yield scrapy.Request(url, callback=self.parse)
+        print(pages,type(pages))
+        for page in range(2,int(pages)+2):
+            url = f"https://ec.europa.eu/clima/ets/oha.do?form=oha&languageCode=fr&accountHolder=&installationIdentifier=&installationName=&permitIdentifier=&mainActivityType=-1&searchType=oha&currentSortSettings=&backList=%3CBack&resultList.currentPageNumber={page}"
+            yield scrapy.Request(url, callback=self.parse,meta={'page': page-1})
+
 
     def parse(self, response): #extrait les données du tableau
-        for row in response.css('table#tblAccountSearchResult tr:nth-child(n+3)'):  # (n+3) car les infos sont pas pertinentes avant ça
-            dico_table_data ={               
-                'National_Administrator':                   None if not row.css('td:nth-child(1) span::text').get() else row.css('td:nth-child(1) span::text').get().strip(),
-                'Account_Type':                             None if not row.css('td:nth-child(2) span::text').get() else row.css('td:nth-child(2) span::text').get().strip(),
-                'Account_Holder_Name':                      None if not row.css('td:nth-child(3) span::text').get() else row.css('td:nth-child(3) span::text').get().strip(),
-                'Installation/Aircraft_ID':                 None if not row.css('td:nth-child(4) span::text').get() else row.css('td:nth-child(4) span::text').get().strip(),
-                'Installation_Name/Aircraft_Operator_Code': None if not row.css('td:nth-child(5) span::text').get() else row.css('td:nth-child(5) span::text').get().strip(),
-                'Company_Regustration_No':                  None if not row.css('td:nth-child(6) span::text').get() else row.css('td:nth-child(6) span::text').get().strip(),
-                'Permit/Plan_ID':                           None if not row.css('td:nth-child(7) span::text').get() else row.css('td:nth-child(7) span::text').get().strip(),
-                'Permit/Plan_Date':                         None if not row.css('td:nth-child(8) span::text').get() else row.css('td:nth-child(8) span::text').get().strip(),
-                'Main_Activity_Type':                       None if not row.css('td:nth-child(9) span::text').get() else row.css('td:nth-child(9) span::text').get().strip(),
-                'Latest_Compliance_Code':                   None if not row.css('td:nth-child(10) span::text').get() else row.css('td:nth-child(10) span::text').get().strip()} 
-            url = row.css('td:nth-child(11) td:nth-child(2) a::attr(href)').get()
+        page = response.meta['page']
+        print("page",page,"sur",response.css("td.bgpagecontent input:nth-child(5)::attr(value)").get())
+        if response.css("td.bgpagecontent input:nth-child(5)::attr(value)").get() == None:
+            print("erreur sur cet url :",response.url)
+            yield scrapy.Request(response.url, callback=self.parse,meta={'page': page})
+        else:
+            for row in response.css('table#tblAccountSearchResult tr:nth-child(n+3)'):  # (n+3) car les infos sont pas pertinentes avant ça
+                dico_table_data ={               
+                    'National_Administrator':                   None if not row.css('td:nth-child(1) span::text').get() else row.css('td:nth-child(1) span::text').get().strip(),
+                    'Account_Type':                             None if not row.css('td:nth-child(2) span::text').get() else row.css('td:nth-child(2) span::text').get().strip(),
+                    'Account_Holder_Name':                      None if not row.css('td:nth-child(3) span::text').get() else row.css('td:nth-child(3) span::text').get().strip(),
+                    'Installation/Aircraft_ID':                 None if not row.css('td:nth-child(4) span::text').get() else row.css('td:nth-child(4) span::text').get().strip(),
+                    'Installation_Name/Aircraft_Operator_Code': None if not row.css('td:nth-child(5) span::text').get() else row.css('td:nth-child(5) span::text').get().strip(),
+                    'Company_Regustration_No':                  None if not row.css('td:nth-child(6) span::text').get() else row.css('td:nth-child(6) span::text').get().strip(),
+                    'Permit/Plan_ID':                           None if not row.css('td:nth-child(7) span::text').get() else row.css('td:nth-child(7) span::text').get().strip(),
+                    'Permit/Plan_Date':                         None if not row.css('td:nth-child(8) span::text').get() else row.css('td:nth-child(8) span::text').get().strip(),
+                    'Main_Activity_Type':                       None if not row.css('td:nth-child(9) span::text').get() else row.css('td:nth-child(9) span::text').get().strip(),
+                    'Latest_Compliance_Code':                   None if not row.css('td:nth-child(10) span::text').get() else row.css('td:nth-child(10) span::text').get().strip()} 
+                url = row.css('td:nth-child(11) td:nth-child(2) a::attr(href)').get()
+                yield scrapy.Request(url, self.parse_compliances,meta={'dico_table_data': dico_table_data})
 
-            yield scrapy.Request(url, self.parse_compliances,meta={'dico_table_data': dico_table_data})
 
             #permet de passer le dico en paramètre pour la fonction parse_compliance
 
@@ -109,7 +109,6 @@ class europa_spider(scrapy.Spider):
                     dico_table_data["CH_Compliance_"+key_year+"_Cumulative_Surrendered_Units"] =      None if not cell.css('td:nth-child(6) span::text').get() else row.css('td:nth-child(6) span::text').get().strip()
                     dico_table_data["CH_Compliance_"+key_year+"_Cumulative_Verified_Emissions"] =     None if not cell.css('td:nth-child(7) span::text').get() else row.css('td:nth-child(7) span::text').get().strip()
                     dico_table_data["CH_Compliance_"+key_year+"_Compliance_Code"] =                   None if not cell.css('td:nth-child(8) span::text').get() else row.css('td:nth-child(8) span::text').get().strip()
-        print("nouvelle ligne ID : ",dico_table_data['Installation/Aircraft_ID'])
         yield dico_table_data
 
 '''
@@ -122,7 +121,5 @@ scrapy runspider europa_spider.py -O ../../data.csv
 
 pour lancer Crawl il faut etre n'importe ou dans le projet scrapy
 
-
 pour lancer runspider il faut être dans le meme directory que la spider (ici europa_spider) 
-c'est pour ça que le .csv se sauvegarde automatiquement a cet endroit
 '''

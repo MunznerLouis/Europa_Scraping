@@ -17,6 +17,6 @@ Etape 4 : lancer la commande suivante :
 scrapy runspider [fichier de la classe spider] -O [nom de fichier avec son extension]
 le 'o' peut etre en majuscule si on veut Override on fichier du même nom 
 exemple
-scrapy runspider europa_spider.py -O csv
+scrapy runspider europa_spider.py -O data.csv
 
 PS : l'étape 4 remplace l'étape 3 dans le cas ou on veut sauvegarder les données scrapées
