@@ -8,7 +8,7 @@
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
 BOT_NAME = 'scrapy_scraper'
-
+DUPEFILTER_CLASS = 'scrapy.dupefilters.BaseDupeFilter'
 SPIDER_MODULES = ['scrapy_scraper.spiders']
 NEWSPIDER_MODULE = 'scrapy_scraper.spiders'
 FEED_EXPORT_ENCODING = 'utf-8' #pour eviter les prob de caractères spéciaux
@@ -19,14 +19,15 @@ FEED_EXPORT_ENCODING = 'utf-8' #pour eviter les prob de caractères spéciaux
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False   #on set to false pour pas recevoir 1000 messages d'erreurs dans le terminale
 
+
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
-#CONCURRENT_REQUESTS = 32
+CONCURRENT_REQUESTS = 32
 
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-#DOWNLOAD_DELAY = 0.2   #5rq/s
-#RANDOMIZE_DOWNLOAD_DELAY = True
+#DOWNLOAD_DELAY = 3
+RETRY_TIMES = 10
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
