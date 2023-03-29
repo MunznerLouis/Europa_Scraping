@@ -84,39 +84,42 @@ class europa_spider(scrapy.Spider):
 
         #EU Compliance Information
         if response.css('[id=tblChildDetails] div:nth-child(2)') == []:
-            for row in response.css('[id=tblChildDetails] div table tr:nth-child(n+3):not(:nth-last-child(-n+6))'): #(-n+6) car les 7dernieres lignes servent à rien (et provoquent des erreurs)
-                key_year = row.css('td:nth-child(2) span::text').get().strip()  
-                for cell in row.css('tr'):
-                    dico_table_data["EU_Compliance_"+key_year+"_Allowances_in_Allocation"] =          cell.css('td:nth-child(3) span::text').get(default='').strip()
-                    dico_table_data["EU_Compliance_"+key_year+"_Verified_Emissions"] =                cell.css('td:nth-child(4) span::text').get(default='').strip()
-                    dico_table_data["EU_Compliance_"+key_year+"_Units_Surrendered"] =                 cell.css('td:nth-child(5) span::text').get(default='').strip()
-                    dico_table_data["EU_Compliance_"+key_year+"_Cumulative_Surrendered_Units"] =      cell.css('td:nth-child(6) span::text').get(default='').strip()
-                    dico_table_data["EU_Compliance_"+key_year+"_Cumulative_Verified_Emissions"] =     cell.css('td:nth-child(7) span::text').get(default='').strip()
-                    dico_table_data["EU_Compliance_"+key_year+"_Compliance_Code"] =                   cell.css('td:nth-child(8) span::text').get(default='').strip()
+            for row in response.css('[id=tblChildDetails] div table tr:nth-child(n+3)'): #(-n+6) car les 7dernieres lignes servent à rien (et provoquent des erreurs)
+                    key_year = row.css('td:nth-child(2) span::text').get(default='').strip()  
+                    if len(key_year)==4:
+                        for cell in row.css('tr'):
+                            dico_table_data["EU_Compliance_"+key_year+"_Allowances_in_Allocation"] =          cell.css('td:nth-child(3) span::text').get(default='').strip()
+                            dico_table_data["EU_Compliance_"+key_year+"_Verified_Emissions"] =                cell.css('td:nth-child(4) span::text').get(default='').strip()
+                            dico_table_data["EU_Compliance_"+key_year+"_Units_Surrendered"] =                 cell.css('td:nth-child(5) span::text').get(default='').strip()
+                            dico_table_data["EU_Compliance_"+key_year+"_Cumulative_Surrendered_Units"] =      cell.css('td:nth-child(6) span::text').get(default='').strip()
+                            dico_table_data["EU_Compliance_"+key_year+"_Cumulative_Verified_Emissions"] =     cell.css('td:nth-child(7) span::text').get(default='').strip()
+                            dico_table_data["EU_Compliance_"+key_year+"_Compliance_Code"] =                   cell.css('td:nth-child(8) span::text').get(default='').strip()
         
         else:
             
-            for row in response.css('[id=tblChildDetails] div:nth-child(1) table tr:nth-child(n+3):not(:nth-last-child(-n+6))'): #(-n+6) car les 7dernieres lignes servent à rien (et provoquent des erreurs)
-                key_year = row.css('td:nth-child(2) span::text').get().strip() 
-                for cell in row.css('tr'):
-                    dico_table_data["EU_Compliance_"+key_year+"_Allowances_in_Allocation"] =          cell.css('td:nth-child(3) span::text').get(default='').strip()
-                    dico_table_data["EU_Compliance_"+key_year+"_Verified_Emissions"] =                cell.css('td:nth-child(4) span::text').get(default='').strip()
-                    dico_table_data["EU_Compliance_"+key_year+"_Units_Surrendered"] =                 cell.css('td:nth-child(5) span::text').get(default='').strip()
-                    dico_table_data["EU_Compliance_"+key_year+"_Cumulative_Surrendered_Units"] =      cell.css('td:nth-child(6) span::text').get(default='').strip()
-                    dico_table_data["EU_Compliance_"+key_year+"_Cumulative_Verified_Emissions"] =     cell.css('td:nth-child(7) span::text').get(default='').strip()
-                    dico_table_data["EU_Compliance_"+key_year+"_Compliance_Code"] =                   cell.css('td:nth-child(8) span::text').get(default='').strip()
+            for row in response.css('[id=tblChildDetails] div:nth-child(1) table tr:nth-child(n+3)'): #(-n+6) car les 7dernieres lignes servent à rien (et provoquent des erreurs)
+                key_year = row.css('td:nth-child(2) span::text').get(default='').strip()  
+                if len(key_year)==4:
+                    for cell in row.css('tr'):
+                        dico_table_data["EU_Compliance_"+key_year+"_Allowances_in_Allocation"] =          cell.css('td:nth-child(3) span::text').get(default='').strip()
+                        dico_table_data["EU_Compliance_"+key_year+"_Verified_Emissions"] =                cell.css('td:nth-child(4) span::text').get(default='').strip()
+                        dico_table_data["EU_Compliance_"+key_year+"_Units_Surrendered"] =                 cell.css('td:nth-child(5) span::text').get(default='').strip()
+                        dico_table_data["EU_Compliance_"+key_year+"_Cumulative_Surrendered_Units"] =      cell.css('td:nth-child(6) span::text').get(default='').strip()
+                        dico_table_data["EU_Compliance_"+key_year+"_Cumulative_Verified_Emissions"] =     cell.css('td:nth-child(7) span::text').get(default='').strip()
+                        dico_table_data["EU_Compliance_"+key_year+"_Compliance_Code"] =                   cell.css('td:nth-child(8) span::text').get(default='').strip()
 
             #CH Compliance information - ONLY FOR AIRCRAFT OPERATOR ACCOUNT
             for row in response.css('[id=tblChildDetails] div:nth-child(2) table tr:nth-child(n+5):not(:nth-last-child(-n+4))'): #(-n+4) car les 7dernieres lignes servent à rien (et provoquent des erreurs)
-                key_year = row.css('td:nth-child(2) span::text').get().strip()  
-                for cell in row.css('tr'):
-                    
-                    dico_table_data["CH_Compliance_"+key_year+"_Allowances_in_Allocation"] =          cell.css('td:nth-child(3) span::text').get(default='').strip()
-                    dico_table_data["CH_Compliance_"+key_year+"_Verified_Emissions"] =                cell.css('td:nth-child(4) span::text').get(default='').strip()
-                    dico_table_data["CH_Compliance_"+key_year+"_Units_Surrendered"] =                 cell.css('td:nth-child(5) span::text').get(default='').strip()
-                    dico_table_data["CH_Compliance_"+key_year+"_Cumulative_Surrendered_Units"] =      cell.css('td:nth-child(6) span::text').get(default='').strip()
-                    dico_table_data["CH_Compliance_"+key_year+"_Cumulative_Verified_Emissions"] =     cell.css('td:nth-child(7) span::text').get(default='').strip()
-                    dico_table_data["CH_Compliance_"+key_year+"_Compliance_Code"] =                   cell.css('td:nth-child(8) span::text').get(default='').strip()
+                key_year = row.css('td:nth-child(2) span::text').get(default='').strip()  
+                if len(key_year)==4:
+                    for cell in row.css('tr'):
+                        
+                        dico_table_data["CH_Compliance_"+key_year+"_Allowances_in_Allocation"] =          cell.css('td:nth-child(3) span::text').get(default='').strip()
+                        dico_table_data["CH_Compliance_"+key_year+"_Verified_Emissions"] =                cell.css('td:nth-child(4) span::text').get(default='').strip()
+                        dico_table_data["CH_Compliance_"+key_year+"_Units_Surrendered"] =                 cell.css('td:nth-child(5) span::text').get(default='').strip()
+                        dico_table_data["CH_Compliance_"+key_year+"_Cumulative_Surrendered_Units"] =      cell.css('td:nth-child(6) span::text').get(default='').strip()
+                        dico_table_data["CH_Compliance_"+key_year+"_Cumulative_Verified_Emissions"] =     cell.css('td:nth-child(7) span::text').get(default='').strip()
+                        dico_table_data["CH_Compliance_"+key_year+"_Compliance_Code"] =                   cell.css('td:nth-child(8) span::text').get(default='').strip()
         yield dico_table_data
 
 '''
