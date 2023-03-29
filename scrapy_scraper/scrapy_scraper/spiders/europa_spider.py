@@ -1,14 +1,12 @@
 import asyncio
 import logging
 import scrapy       #pip install scrapy  --> scrapy ver. > 2.4 pour utiliser asyncio
-
+import time
 
 class europa_spider(scrapy.Spider):
 
     name = "europa_spider"
-    start_urls = [
-        "https://ec.europa.eu/clima/ets/oha.do?form=oha&languageCode=fr&accountHolder=&installationIdentifier=&installationName=&permitIdentifier=&mainActivityType=-1&searchType=oha&currentSortSettings=accountTypeCode+ASC&backList=%3CBack&resultList.currentPageNumber=2"
-    ]
+    start_urls = "https://ec.europa.eu/clima/ets/oha.do?form=oha&languageCode=fr&accountHolder=&installationIdentifier=&installationName=&permitIdentifier=&mainActivityType=-1&searchType=oha&currentSortSettings=accountTypeCode+ASC&backList=%3CBack&resultList.currentPageNumber=2"
     custom_settings = {'LOG_LEVEL': 'INFO',}
 
     def start_requests(self):  #override de la fonction start_request pour que la premiere fonction lancé soit 'parse_countries' et pas 'parse' 
@@ -16,7 +14,10 @@ class europa_spider(scrapy.Spider):
 
     def parse_pages(self,response):
         pages = response.css("td.bgpagecontent input:nth-child(5)::attr(value)").get()
-        for page in range(2,int(pages)+2):
+
+        #permet de set up le .csv
+        yield response.follow(self.start_urls, callback=self.parse,meta={'page': 1},priority=1)
+        for page in range(3,int(pages)+2):
             url = f"https://ec.europa.eu/clima/ets/oha.do?form=oha&languageCode=fr&accountHolder=&installationIdentifier=&installationName=&permitIdentifier=&mainActivityType=-1&searchType=oha&currentSortSettings=accountTypeCode+ASC&backList=%3CBack&resultList.currentPageNumber="+ str(page)
             yield response.follow(url, callback=self.parse,meta={'page': page-1})
 
