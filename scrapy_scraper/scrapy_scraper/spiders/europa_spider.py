@@ -1,7 +1,6 @@
 import asyncio
 import logging
 import scrapy       #pip install scrapy  --> scrapy ver. > 2.4 pour utiliser asyncio
-import time
 
 class europa_spider(scrapy.Spider):
 

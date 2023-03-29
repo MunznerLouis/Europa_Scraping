@@ -1,4 +1,4 @@
-Date du dernier lancement du script transaction_check.py : 2023-03-29 00:38:52.450465
-Date de la dernière update du fichier transaction_check.txt : 2023-03-29 00:38:52.450465
+Date du dernier lancement du script transaction_spider.py : 2023-03-29 00:38:52.450465
+Date de la derniï¿½re update du fichier transaction_check.txt : 2023-03-29 00:38:52.450465
 
-Date de la dernière update du site : 2019-04-30 19:02:55.43
+Date de la derniï¿½re update du site : 2019-04-30 19:02:55.43

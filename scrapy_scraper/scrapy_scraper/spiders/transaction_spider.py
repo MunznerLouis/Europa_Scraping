@@ -17,7 +17,7 @@ class transaction_spider(scrapy.Spider):
     def start_requests(self):  #override de la fonction start_request pour que la premiere fonction lancé soit 'parse_checker' et pas 'parse' 
         yield scrapy.Request(self.start_urls, callback=self.parse_checker)
     
-    #verifie si il faut relancer le scraping ou non
+    #PARTIE VERIF SI IL FAUT SCRAP
     def parse_checker(self, response):
         date_format = '%Y-%m-%d %H:%M:%S.%f'
         last_date = response.css("table#tblTransactionSearchResult tr:nth-child(3) td:nth-child(3) span::text").get(default='').strip()
@@ -28,7 +28,7 @@ class transaction_spider(scrapy.Spider):
         print("DATE",last_date,'==',date_verif,date_verif==last_date)
 
         with open("../../transaction_check.txt", "w") as f:
-            f.write(f"Date du dernier lancement du script transaction_check.py : {datetime.now()}\n")
+            f.write(f"Date du dernier lancement du script transaction_spider.py : {datetime.now()}\n")
             if last_date != date_verif:
                 f.write(f"Date de la dernière update du fichier transaction_check.txt : {datetime.now()}\n\n")
                 f.write(f"Date de la dernière update du site : {last_date}\n")
