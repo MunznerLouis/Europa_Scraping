@@ -1,2 +1,6 @@
 scrapy==2.7.1
-
+pandas==1.5.3
+plotly==5.13.1
+dash==2.9.1
+geopy==2.3.0
+folium==0.14.0
