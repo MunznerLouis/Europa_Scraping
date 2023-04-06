@@ -19,8 +19,14 @@ Python 3.10.5 - Projet Scrapy
 
 ### Pré-requis
 
+Pour l'extraction de données
 - Scrapy 2.7.1  
 les autres librairies tel que **logging** et **datetime** devrait être integré dans la bibliothèque standart de votre version python  
+Pour les dashboards
+- numpy 1.24.1
+- pandas 1.5.3
+- plotly 5.13.1
+- dash 2.9.1
 
 ### Installation
 
