@@ -28,6 +28,8 @@ Pour les dashboards
 - pandas 1.5.3 pour manipuler les données
 - plotly 5.13.1 pour créer des graphiques
 - dash 2.9.1 pour développer des applications web pour la visualisation des données
+- geopy 2.3.0 to get latitude and longitude coordinates for addresses 
+- folium 0.14.0 to create an interactive map centered on the mean Latitude and Longitude of the holding accounts
 
 ### Installation
 
@@ -41,7 +43,7 @@ Pour les dashboards
 <br><br>
 <!-- USAGE EXAMPLES -->
 ## Utilisation
-
+### Pour le Scraping
 Pour lancer une Spider contenu dans le dossier 'spiders' du projet :    
   
 1. Dans votre environnement ,lancez la commande suivante :  
@@ -58,7 +60,9 @@ exemple :
   
 PS : l'étape 2 remplace l'étape 1 dans le cas ou on veut sauvegarder les données scrapées  
 
-
+### Pour les dashboards
+Dans votre environnement ,lancez la commande suivante :
+python nom_fichier.py
 
 <br><br>
 <!-- ROADMAP -->
