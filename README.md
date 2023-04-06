@@ -3,6 +3,10 @@
 
 ## A propos du projet
 
+
+
+## A propos du projet
+
 Ce repository sert à mettre en commun notre code pour le projet science_po pour le projetS2
 
 Le projet est de scraper des données sur le site : https://ec.europa.eu/clima/ets/welcome.do?languageCode=fr
@@ -19,8 +23,17 @@ Python 3.10.5 - Projet Scrapy
 
 ### Pré-requis
 
+Pour l'extraction de données
 - Scrapy 2.7.1  
 les autres librairies tel que **logging** et **datetime** devrait être integré dans la bibliothèque standart de votre version python  
+
+Pour les dashboards
+- numpy 1.24.1 pour manipuler les données
+- pandas 1.5.3 pour manipuler les données
+- plotly 5.13.1 pour créer des graphiques
+- dash 2.9.1 pour développer des applications web pour la visualisation des données
+- geopy 2.3.0 to get latitude and longitude coordinates for addresses 
+- folium 0.14.0 to create an interactive map centered on the mean Latitude and Longitude of the holding accounts
 
 ### Installation
 
@@ -34,7 +47,7 @@ les autres librairies tel que **logging** et **datetime** devrait être integré
 <br><br>
 <!-- USAGE EXAMPLES -->
 ## Utilisation
-
+### Pour le Scraping
 Pour lancer une Spider contenu dans le dossier 'spiders' du projet :    
   
 1. Dans votre environnement ,lancez la commande suivante :  
@@ -51,7 +64,9 @@ exemple :
   
 PS : l'étape 2 remplace l'étape 1 dans le cas ou on veut sauvegarder les données scrapées  
 
-
+### Pour les dashboards
+Dans votre environnement ,lancez la commande suivante :
+python nom_fichier.py
 
 <br><br>
 <!-- ROADMAP -->
@@ -95,7 +110,9 @@ PS : l'étape 2 remplace l'étape 1 dans le cas ou on veut sauvegarder les donn�
 - Zeddam Hatem - zeddamhate@cy-tech.fr  
 
 - Noyes Enzo - noyesenzo@cy-tech.fr  
+- Noyes Enzo - noyesenzo@cy-tech.fr  
 
+Project Link: [https://github.com/MunznerLouis/Europa_Scraping](https://github.com/MunznerLouis/Europa_Scraping)
 Project Link: [https://github.com/MunznerLouis/Europa_Scraping](https://github.com/MunznerLouis/Europa_Scraping)
 
 
