@@ -22,11 +22,12 @@ Python 3.10.5 - Projet Scrapy
 Pour l'extraction de données
 - Scrapy 2.7.1  
 les autres librairies tel que **logging** et **datetime** devrait être integré dans la bibliothèque standart de votre version python  
+
 Pour les dashboards
-- numpy 1.24.1
-- pandas 1.5.3
-- plotly 5.13.1
-- dash 2.9.1
+- numpy 1.24.1 pour manipuler les données
+- pandas 1.5.3 pour manipuler les données
+- plotly 5.13.1 pour créer des graphiques
+- dash 2.9.1 pour développer des applications web pour la visualisation des données
 
 ### Installation
 
