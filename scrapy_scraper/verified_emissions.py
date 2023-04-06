@@ -47,9 +47,7 @@ import plotly.graph_objs as go
 
 
 # Load data
-holding = pd.read_csv(
-    "C:/Users/CYTech Student/Jupyter Work/Untitled Folder/data_holding_account.csv"
-)
+holding = pd.read_csv("data_holding_account.csv")
 
 
 holding[holding.columns[29:]] = holding[holding.columns[29:]].replace(
