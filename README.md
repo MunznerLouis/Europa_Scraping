@@ -18,16 +18,19 @@ Python - Projet Scrapy
 ## Pour commencer
 
 1.Cloner le dépôt du projet : git clone https://github.com/votre-utilisateur/votre-projet.git
+
 2.Naviguer dans le répertoire du projet : cd votre-projet
+
 3.Installer les dépendances : pip install -r requirements.txt
+
 
 ### Pré-requis
 
-pip install scrapy 
-pip install asyncio (pas sûre d'être utile)
-pip install pandas
-pip install logging
-pip install datetime
+- pip install scrapy 
+- pip install asyncio (pas sûre d'être utile)
+- pip install pandas
+- pip install logging
+- pip install datetime
 
 ### Installation
 
