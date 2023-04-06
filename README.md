@@ -3,14 +3,11 @@
 
 ## A propos du projet
 
-
-
-## A propos du projet
-
 Ce repository sert à mettre en commun notre code pour le projet science_po pour le projetS2
 
 Le projet est de scraper des données sur le site : https://ec.europa.eu/clima/ets/welcome.do?languageCode=fr
 
+les données sont téléchargeable sur le site : http://scspo-cytech.fr:16500/login.php (site temporaire)
 
 ### language utilisé
 
@@ -65,7 +62,7 @@ exemple :
 PS : l'étape 2 remplace l'étape 1 dans le cas ou on veut sauvegarder les données scrapées  
 
 ### Pour les dashboards
-Dans votre environnement ,lancez la commande suivante :
+Dans votre environnement ,lancez la commande suivante :  
 python nom_fichier.py
 
 <br><br>
@@ -112,7 +109,6 @@ python nom_fichier.py
 - Noyes Enzo - noyesenzo@cy-tech.fr  
 - Noyes Enzo - noyesenzo@cy-tech.fr  
 
-Project Link: [https://github.com/MunznerLouis/Europa_Scraping](https://github.com/MunznerLouis/Europa_Scraping)
 Project Link: [https://github.com/MunznerLouis/Europa_Scraping](https://github.com/MunznerLouis/Europa_Scraping)
 
 
