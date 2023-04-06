@@ -17,11 +17,11 @@ Python - Projet Scrapy
 <!-- GETTING STARTED -->
 ## Pour commencer
 
-1.Cloner le dépôt du projet : git clone https://github.com/votre-utilisateur/votre-projet.git
+1. Cloner le dépôt du projet : git clone https://github.com/votre-utilisateur/votre-projet.git
 
-2.Naviguer dans le répertoire du projet : cd votre-projet
+2. Naviguer dans le répertoire du projet : cd votre-projet
 
-3.Installer les dépendances : pip install -r requirements.txt
+3. Installer les dépendances : pip install -r requirements.txt
 
 
 ### Pré-requis
@@ -34,11 +34,11 @@ Python - Projet Scrapy
 
 ### Installation
 
-1.Cloner le dépôt du projet : git clone https://github.com/MunznerLouis/Europa_Scraping
-<br><br>
-2.Naviguer dans le répertoire du projet : cd votre-projet
-<br><br>
-3.Installer les dépendances : pip install -r requirements.txt
+1. Cloner le dépôt du projet : git clone https://github.com/MunznerLouis/Europa_Scraping
+
+2. Naviguer dans le répertoire du projet : cd votre-projet
+
+3. Installer les dépendances : pip install -r requirements.txt
 
 
 <br><br>
