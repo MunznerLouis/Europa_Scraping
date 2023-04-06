@@ -102,11 +102,11 @@ PS : l'étape . remplace l'étape 2 dans le cas ou on veut sauvegarder les donn�
 
 - Münzner Louis - munzner.louis@gmail.com 
 
-- Brise Quentin - mail
+- Brise Quentin - brisequent@cy-tech.fr 
 
-- Zeddam Hatem - mail 
+- Zeddam Hatem - zeddamhate@cy-tech.fr  
 
-- Noyes Enzo - mail 
+- Noyes Enzo - noyesenzo@cy-tech.fr  
 
 Project Link: [https://github.com/MunznerLouis/Europa_Scraping](https://github.com/MunznerLouis/Europa_Scraping)
 
