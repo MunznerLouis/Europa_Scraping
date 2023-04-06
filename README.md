@@ -11,10 +11,10 @@ les données sont téléchargeable sur le site : http://scspo-cytech.fr:16500/lo
 
 ### language utilisé
 
-Python 3.10.5 - Projet Scrapy
+Python 3.10.5 - Projet Scrapy  
+<br>
 
 
-<br><br>
 <!-- GETTING STARTED -->
 ## Pour commencer
 
@@ -38,10 +38,10 @@ Pour les dashboards
 
 2. Naviguer dans le répertoire du projet : cd votre-projet
 
-3. Installer les dépendances : pip install -r requirements.txt
+3. Installer les dépendances : pip install -r requirements.txt  
+<br>
 
 
-<br><br>
 <!-- USAGE EXAMPLES -->
 ## Utilisation
 ### Pour le Scraping
@@ -63,17 +63,17 @@ PS : l'étape 2 remplace l'étape 1 dans le cas ou on veut sauvegarder les donn�
 
 ### Pour les dashboards
 Dans votre environnement ,lancez la commande suivante :  
-python nom_fichier.py
+python nom_fichier.py  
+<br>
 
-<br><br>
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] Un dashboard plus complet avec une relation avec d'autre database.
+- [ ] Un dashboard plus complet avec une relation avec d'autre database.  
+<br>
 
 
 
-<br><br>
 <!-- CONTRIBUTING -->
 ## Contribution
 (pas encore publique)
@@ -86,17 +86,8 @@ python nom_fichier.py
 
 4. Pousser les modifications vers votre fork : git push origin ma-branche
 
-5. Créer une pull request pour proposer les modifications au projet d'origine.
-
-
-
-<br><br>
-<!-- LICENSE -->
-## License
-
-
-
-<br><br>
+5. Créer une pull request pour proposer les modifications au projet d'origine.  
+<br>
 <!-- CONTACT -->
 ## Contact
 
