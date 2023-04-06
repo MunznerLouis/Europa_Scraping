@@ -35,9 +35,9 @@ Python - Projet Scrapy
 ### Installation
 
 1.Cloner le dépôt du projet : git clone https://github.com/MunznerLouis/Europa_Scraping
-
+<br><br>
 2.Naviguer dans le répertoire du projet : cd votre-projet
-
+<br><br>
 3.Installer les dépendances : pip install -r requirements.txt
 
 
