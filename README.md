@@ -45,24 +45,24 @@ Python - Projet Scrapy
 <!-- USAGE EXAMPLES -->
 ## Utilisation
 
-Pour lancer une Spider contenu dans le dossier 'spiders' du projet : 
-
-1. Avec un terminale, naviguer jusqu'au dossier où se trouve les spiders
-exemple :  ~/Desktop\Projet sciencepo\Europa_Scraping\scrapy_scraper\scrapy_scraper\spiders>
-
-2. lancer la commande suivante : 
-scrapy runspdier [fichier spider qu'on veut lancer] exemple:
-scrapy runspider europa_spider.py
-ça aura pour effet de scraper le site, mais les données seront sauvegardé nullpart
+Pour lancer une Spider contenu dans le dossier 'spiders' du projet :  
+  
+1. Avec un terminale, naviguer jusqu'au dossier où se trouve les spiders  
+exemple :  ~/Desktop\Projet sciencepo\Europa_Scraping\scrapy_scraper\scrapy_scraper\spiders>  
+  
+2. lancer la commande suivante :  
+scrapy runspdier [fichier spider qu'on veut lancer] exemple:  
+-**scrapy runspider europa_spider.py**  
+ça aura pour effet de scraper le site, mais les données seront sauvegardé nullpart  
 pour sauvegarder les données quelque part, suivre l'étape 3 : 
 
-3. lancer la commande suivante : 
-scrapy runspider [fichier de la classe spider] -O [nom de fichier avec son extension]
-le 'o' peut etre en majuscule si on veut Override le fichier du même nom 
-exemple
-scrapy runspider europa_spider.py -O ../../data.csv
-
-PS : l'étape . remplace l'étape 2 dans le cas ou on veut sauvegarder les données scrapées
+3. lancer la commande suivante :   
+scrapy runspider [fichier de la classe spider] -O [nom de fichier avec son extension]  
+le 'o' peut etre en majuscule si on veut Override le fichier du même nom  
+exemple :  
+-**scrapy runspider europa_spider.py -O ../../data.csv**    
+  
+PS : l'étape . remplace l'étape 2 dans le cas ou on veut sauvegarder les données scrapées  
 
 
 
