@@ -99,8 +99,7 @@ python nom_fichier.py
 
 - Zeddam Hatem - zeddamhate@cy-tech.fr  
 
-- Noyes Enzo - noyesenzo@cy-tech.fr  
-- Noyes Enzo - noyesenzo@cy-tech.fr  
+- Noyes Enzo - noyesenzo@cy-tech.fr   
 
 Project Link: [https://github.com/MunznerLouis/Europa_Scraping](https://github.com/MunznerLouis/Europa_Scraping)
 
