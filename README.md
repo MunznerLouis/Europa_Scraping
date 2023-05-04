@@ -3,11 +3,12 @@
 
 ## A propos du projet
 
-Ce repository sert à mettre en commun notre code pour le projet science_po pour le projetS2
+Bienvenue dans le repository dédié à notre projet Science Po pour le semestre 2 de 2023. Ce repository est destiné à rassembler notre code et faciliter la collaboration entre nous.
 
-Le projet est de scraper des données sur le site : https://ec.europa.eu/clima/ets/welcome.do?languageCode=fr
+Notre projet consiste à effectuer du web scraping sur le site https://ec.europa.eu/clima/ets/welcome.do?languageCode=fr afin de collecter des données précises.
 
-les données sont téléchargeable sur le site : http://scspo-cytech.fr:16500/login.php (site temporaire)
+De notre coté le projet est fini, mais n'hésitez pas à le copier ou à vous en inspirer pour vos propres projets.
+
 
 ### language utilisé
 
@@ -66,29 +67,30 @@ Dans votre environnement ,lancez la commande suivante :
 python nom_fichier.py  
 <br>
 
-<!-- ROADMAP -->
-## Roadmap
+## Resultats 
 
-- [ ] Un dashboard plus complet avec une relation avec d'autre database.  
-<br>
+les deux spiders se trouve à cette endroit dans le projet  :
+```\scrapy_scraper\scrapy_scraper\spiders\```  :
 
+- europa_spider.py  (pour la partie des sites polluants)
+- transaction_spider.py  (pour la partie transaction)
 
+pour ce qui est de nos .csv il s'agit de :
+- data_holding_account.csv  (13Mo)
+    - 250 colonnes
+    - nombre de lignes : 17 910
+    - temps de scraping : ~13min (15requetes/s)
+- data_transaction.csv  (200Mo)
+    - 15 colonnes
+    - nombre de lignes : 1 106 821
+    - temps de scraping : ~13heure (18requetes/s)
 
 <!-- CONTRIBUTING -->
 ## Contribution
-(pas encore publique)
 
-1. Forker le dépôt
+Nous sommes heureux de vous annoncer que notre projet Science Po pour le semestre 2 de 2023 est désormais terminé.
 
-2. Créer une branche pour la fonctionnalité ou le correctif que vous souhaitez ajouter : git checkout -b ma-branche
- 
-3. Effectuer les modifications nécessaires et les valider : git commit -m "Description de la modification"
-
-4. Pousser les modifications vers votre fork : git push origin ma-branche
-
-5. Créer une pull request pour proposer les modifications au projet d'origine.  
-<br>
-
+Nous souhaitons cependant vous informer que ce repository ne sera plus mis à jour et n'acceptera donc plus de contributions. Néanmoins, nous vous encourageons vivement à vous inspirer de notre code ou à le copier pour vos propres projets si cela peut vous être utile.
 
 <!-- CONTACT -->
 ## Contact
