@@ -67,7 +67,7 @@ Dans votre environnement ,lancez la commande suivante :
 python nom_fichier.py  
 <br>
 
-## Resultats 
+## Resultats Scraping
 
 les deux spiders se trouve à cette endroit dans le projet  :
 ```\scrapy_scraper\scrapy_scraper\spiders\```  :
@@ -84,35 +84,22 @@ pour ce qui est de nos .csv il s'agit de :
     - 15 colonnes
     - nombre de lignes : 1 106 821
     - temps de scraping : ~13heure (18requetes/s)
-#### Dashbaord
-## Resultats 
+
+## Resultats Dashboard
 
 Avec les données collectés nous avons pu créer une carte interactive pour permettre de visualiser des informations liées aux entreprises lorsqu'on passe la souris dessus. Nous avons aussi pu produire plusieurs graphiques permettant de mieux comprendre les données extraites lors du scraping.
-les deux spiders se trouve à cette endroit dans le projet  :
-```\scrapy_scraper\scrapy_scraper\spiders\```  :
 
 <img src="dashboard/Plot_Screenshots/Holding_map.png" alt="Holding map" width="65%">
 <img src="dashboard/Plot_Screenshots/mouse_Hover.png" alt="Mouse hover" width="45%">
-- europa_spider.py  (pour la partie des sites polluants)
-- transaction_spider.py  (pour la partie transaction)
 
 Nous avons également pu produire plusieurs graphs, mais dans l'optique de ne pas inonder le ReadMe nous ne les présenterons pas tous : 
 <img src="dashboard/Plot_Screenshots/top_10_Polluting_Countries.png" alt="Mouse hover" width="100%">
-pour ce qui est de nos .csv il s'agit de :
-- data_holding_account.csv  (13Mo)
-    - 250 colonnes
-    - nombre de lignes : 17 910
-    - temps de scraping : ~13min (15requetes/s)
-- data_transaction.csv  (200Mo)
-    - 15 colonnes
-    - nombre de lignes : 1 106 821
-    - temps de scraping : ~13heure (18requetes/s)
 
 <!-- CONTRIBUTING -->
 
 ## Contribution
 
-Nous sommes heureux de vous annoncer que notre projet Science Po pour le semestre 2 de 2023 est désormais terminé.
+Nous sommes heureux de vous annoncer que notre projet Science Po pour le semestre 2 de 2023 est désormais terminé. (On a eu 18/20!🥳)
 
 Nous souhaitons cependant vous informer que ce repository ne sera plus mis à jour et n'acceptera donc plus de contributions. Néanmoins, nous vous encourageons vivement à vous inspirer de notre code ou à le copier pour vos propres projets si cela peut vous être utile.
 
